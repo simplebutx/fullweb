@@ -1,0 +1,81 @@
+.post-detail-container {
+  max-width: 720px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+.post-detail-card {
+  background: #ffffff;
+  padding: 28px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  border: 1px solid #eee;
+}
+
+.post-detail-title {
+  margin: 0 0 20px 0;
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.post-detail-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 24px;
+  font-size: 14px;
+  color: #666;
+}
+
+.post-detail-content {
+  font-size: 17px;
+  line-height: 1.7;
+  white-space: pre-line; /* 줄바꿈 유지 */
+  color: #333;
+}
+
+.post-detail-controls {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.edit-btn, .delete-btn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.edit-btn {
+  background: #4caf50;
+  color: white;
+}
+
+.delete-btn {
+  background: #e53935;
+  color: white;
+}
+
+.edit-btn:hover {
+  background: #43a047;
+}
+
+.delete-btn:hover {
+  background: #c62828;
+}
+
+.post-detail-image {
+  width: auto;          
+  max-width: 100%;     
+  height: auto;
+  display: block;
+  margin-top: 16px;
+  border-radius: 12px;
+  max-height: 400px;
+  object-fit: contain;
+  margin-left: 0;   
+  margin-bottom: 24px;    
+}
