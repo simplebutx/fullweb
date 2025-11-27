@@ -15,7 +15,7 @@ const app = express();
 
 const allowedOrigins = [
   'http://localhost:5173',
-  'https://webf-three.vercel.app',
+  'https://fullweb-beta.vercel.app',
 ];
 
 app.use(
