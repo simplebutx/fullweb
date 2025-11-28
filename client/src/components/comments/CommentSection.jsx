@@ -4,68 +4,100 @@ import CommentItem from './CommentItem';
 import './Comment.css';
 
 function CommentSection({ postId, user }) {
-  const [comment, setComment] = useState('');
   const [comments, setComments] = useState([]);
+  const [newComment, setNewComment] = useState('');
+  const [loading, setLoading] = useState(true);
   const [msg, setMsg] = useState('');
 
-  const loadComments = async () => {
+  const fetchComments = async () => {
     try {
+      setLoading(true);
       const res = await apiFetch(`/posts/${postId}/comments`);
       const data = await res.json();
       setComments(data.comments || []);
     } catch (err) {
       console.error('댓글 불러오기 에러:', err);
+      setMsg('댓글을 불러오는 중 오류 발생');
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
-    if (postId) loadComments();
+    if (postId) {
+      fetchComments();
+    }
   }, [postId]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!comment.trim()) return;
+    if (!newComment.trim()) return;
 
     try {
       const res = await apiFetch(`/posts/${postId}/comments`, {
         method: 'POST',
-        body: JSON.stringify({ comment }),
+        body: JSON.stringify({ comment: newComment }),
       });
 
       const data = await res.json();
-      setMsg(data.msg);
+      setMsg(data.msg || '');
 
       if (res.ok) {
-        setComment('');
-        loadComments();
+        setNewComment('');
+        fetchComments();
       }
     } catch (err) {
-      console.error(err);
-      setMsg('댓글 작성 중 오류가 발생했습니다.');
+      console.error('댓글 작성 에러:', err);
+      setMsg('댓글 작성 중 오류 발생');
+    } finally {
+      setTimeout(() => setMsg(''), 2000);
     }
   };
 
-  return (
-    <div className="comment-section">
-      {msg && <div className="comment-msg">{msg}</div>}
+   return (
+    <section className="comment-section">
+      <h3>댓글</h3>
 
-      <form onSubmit={handleSubmit} className="comment-form">
-        <input
-          className="comment-input"
-          placeholder="댓글을 입력하세요"
-          value={comment}
-          onChange={(e) => setComment(e.target.value)}
-        />
-        <button className="comment-btn">작성</button>
-      </form>
+      {msg && <div className="popup">{msg}</div>}
 
-      <div className="comment-list">
-        {comments.map((c) => (
-          <CommentItem key={c._id} comment={c} currentUser={user} />
-        ))}
-      </div>
-    </div>
+      {user ? (
+        <form onSubmit={handleSubmit} className="comment-form">
+          <input
+            className="comment-input"
+            value={newComment}
+            onChange={(e) => setNewComment(e.target.value)}
+            placeholder="댓글을 입력하세요"
+          />
+          <button type="submit" className="comment-btn">
+            댓글 작성
+          </button>
+        </form>
+      ) : (
+        <p>댓글을 작성하려면 로그인하세요.</p>
+      )}
+
+      {loading && <div>댓글 불러오는 중...</div>}
+
+      {!loading && comments.length === 0 && (
+        <div>아직 댓글이 없습니다.</div>
+      )}
+
+      {!loading && comments.length > 0 && (
+        <div className="comment-list">
+          {comments.map((c) => (
+            <CommentItem
+              key={c._id}
+              comment={c}
+              user={user}
+              postId={postId}
+              onChanged={fetchComments}
+            />
+          ))}
+        </div>
+      )}
+    </section>
   );
 }
+
 
 export default CommentSection;

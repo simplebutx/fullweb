@@ -76,3 +76,17 @@
   color: #94a3b8; /* 연한 회색 */
   margin-top: 6px;
 }
+
+.comment-input {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 15px;
+  outline: none;
+  transition: 0.2s;
+
+  /* 🔥 여기 추가하면 글씨체 깔끔하게 바뀜 */
+  font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+  line-height: 1.5;
+}

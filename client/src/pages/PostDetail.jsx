@@ -11,10 +11,7 @@ function PostDetail({ user }) {
   const [post, setPost] = useState(null);   // 글 데이터
   const [msg, setMsg] = useState('');       // 팝업 메시지
   const [loading, setLoading] = useState(true); // 로딩 상태
-
-  const [comment, setComment] = useState(''); 
-  const [comments, setComments] = useState([]);
-
+  
   // UI 편의성 (자기 글만 수정 삭제 버튼)
   const userId = user && (user._id || user.id);
   const authorId = post && (post.authorId || post.userId);

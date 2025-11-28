@@ -10,6 +10,7 @@ require('./db');
 const passport = require('./config/passport');
 const authRouter = require('./routes/auth');
 const postsRouter = require('./routes/posts');
+const commentsRouter = require('./routes/comments');
 
 const app = express();
 
@@ -68,6 +69,7 @@ app.get('/api/hello', (req, res) => {
 // 라우터 연결
 app.use('/', authRouter);     // /SignUp, /login, /me, /logout
 app.use('/posts', postsRouter); // /posts, /posts/:id, /posts/mine ...
+app.use('/posts', commentsRouter);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
@@ -76,5 +78,5 @@ app.listen(PORT, () => {
 
 
 
-// 추가할 기능: 관리자권한, 댓글기능, 검색기능, 페이지 나누기, 아마존에 베포하기
-// 완성한 기능: 회원가입, 로그인(세션, 접근권한), post CRUD, 디테일페이지, 마이페이지, 이미지업로드(아마존)
+// 추가할 기능: 관리자권한, 검색기능, 페이지 나누기, 아마존에 베포하기
+// 완성한 기능: 회원가입, 로그인(세션, 접근권한), post CRUD, 디테일페이지, 마이페이지, 이미지업로드(아마존), 댓글기능,
