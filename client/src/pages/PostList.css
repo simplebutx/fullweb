@@ -1,16 +1,8 @@
-/* 가로 스크롤 방지 (전역) */
-html, body {
-  max-width: 100%;
-  overflow-x: hidden;
-}
-
-/* 🔹 홈 전체 컨테이너 */
 .home {
-  max-width: 720px;      /* PC에서는 720 기준으로 가운데 정렬 */
-  width: 100%;           /* 화면보다 넓어지지 않게 */
+  max-width: 720px;     /* PC에서는 720 기준으로 가운데 */
+  width: 100%;          /* 절대 화면보다 넓어지지 않게 */
   margin: 40px auto;
   padding: 0 16px;
-  box-sizing: border-box; /* padding까지 포함해서 100% 안 넘게 */
 }
 
 /* 상단 헤더 */
@@ -36,14 +28,12 @@ html, body {
   border: 1px solid #bae6fd;
 }
 
-/* 🔹 게시글 리스트 전체 */
 .post-list {
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-/* 🔹 각 게시글 카드 */
 .post-card {
   background: #ffffff;
   border-radius: 10px;
@@ -51,8 +41,8 @@ html, body {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
   border: 1px solid #e5e7eb;
 
-  width: 100%;            /* 부모 .home 폭 안에서 꽉 채우기 */
-  box-sizing: border-box; /* padding 포함해서 100% 넘지 않게 */
+  width: 100%;
+  margin: 0 auto;       /* 혹시 모를 좌우 여백 보정 */
 }
 
 .post-card-title {
