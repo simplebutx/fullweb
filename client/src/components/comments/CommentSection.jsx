@@ -23,6 +23,20 @@ function CommentSection({ postId, user }) {
     }
   };
 
+  const handleChildChanged = (message) => {
+  if (message) {
+    setMsg(message);
+    setTimeout(() => setMsg(''), 2000);
+  }
+  fetchComments();  // 수정/삭제 후 목록 새로 불러오기
+};
+
+useEffect(() => {
+  if (postId) {
+    fetchComments();
+  }
+}, [postId]);
+
   useEffect(() => {
     if (postId) {
       fetchComments();
@@ -90,7 +104,7 @@ function CommentSection({ postId, user }) {
               comment={c}
               user={user}
               postId={postId}
-              onChanged={fetchComments}
+              onChanged={handleChildChanged} 
             />
           ))}
         </div>

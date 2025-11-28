@@ -6,13 +6,13 @@ import { apiFetch } from '../../api';
 function CommentItem({ comment, user, postId, onChanged }) {
   const [isEditing, setIsEditing] = useState(false);
   const [editText, setEditText] = useState(comment.comment);
-  const [localMsg, setLocalMsg] = useState('');
 
   const userId = user && (user._id || user.id);
   const authorId = comment && comment.authorId;
   const isAuthor =
     !!userId && !!authorId && String(userId) === String(authorId);
 
+  // ✅ 수정
   const handleUpdate = async (e) => {
     e.preventDefault();
     if (!editText.trim()) return;
@@ -27,23 +27,22 @@ function CommentItem({ comment, user, postId, onChanged }) {
       );
 
       const data = await res.json();
-      setLocalMsg(data.msg || '');
 
       if (res.ok) {
         setIsEditing(false);
-        onChanged && onChanged(); // 부모에서 목록 다시 불러오기
+        onChanged && onChanged(data.msg || '댓글이 수정되었습니다.');
+      } else {
+        onChanged && onChanged(data.msg || '댓글 수정 실패');
       }
     } catch (err) {
       console.error('댓글 수정 에러:', err);
-      setLocalMsg('댓글 수정 중 오류');
-    } finally {
-      setTimeout(() => setLocalMsg(''), 2000);
+      onChanged && onChanged('댓글 수정 중 오류');
     }
   };
 
+  // ✅ 삭제
   const handleDelete = async () => {
-    const ok = window.confirm('댓글을 삭제할까요?');
-    if (!ok) return;
+    if (!window.confirm('댓글을 삭제할까요?')) return;
 
     try {
       const res = await apiFetch(
@@ -54,23 +53,20 @@ function CommentItem({ comment, user, postId, onChanged }) {
       );
 
       const data = await res.json();
-      setLocalMsg(data.msg || '');
 
       if (res.ok) {
-        onChanged && onChanged();
+        onChanged && onChanged(data.msg || '댓글이 삭제되었습니다.');
+      } else {
+        onChanged && onChanged(data.msg || '댓글 삭제 실패');
       }
     } catch (err) {
       console.error('댓글 삭제 에러:', err);
-      setLocalMsg('댓글 삭제 중 오류');
-    } finally {
-      setTimeout(() => setLocalMsg(''), 2000);
+      onChanged && onChanged('댓글 삭제 중 오류');
     }
   };
 
-return (
+  return (
     <div className="comment-card">
-      {localMsg && <div className="popup">{localMsg}</div>}
-
       <div className="comment-author">
         {comment.authorName || '알 수 없음'}
       </div>
@@ -137,6 +133,7 @@ return (
     </div>
   );
 }
+
 
 export default CommentItem;
 

@@ -90,3 +90,18 @@
   font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
   line-height: 1.5;
 }
+
+.popup {
+  position: fixed;
+  top: 200px;
+  left: 50%;
+  transform: translateX(-50%);
+  
+  background-color: rgba(0, 0, 0, 0.85);
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  animation: fadeInOut 2s ease forwards;
+  z-index: 9999;
+}
