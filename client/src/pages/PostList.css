@@ -1,9 +1,19 @@
-.home {
-  max-width: 720px;
-  margin: 40px auto;
-  padding: 0 16px;
+/* 가로 스크롤 방지 (전역) */
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
+/* 🔹 홈 전체 컨테이너 */
+.home {
+  max-width: 720px;      /* PC에서는 720 기준으로 가운데 정렬 */
+  width: 100%;           /* 화면보다 넓어지지 않게 */
+  margin: 40px auto;
+  padding: 0 16px;
+  box-sizing: border-box; /* padding까지 포함해서 100% 안 넘게 */
+}
+
+/* 상단 헤더 */
 .home-header {
   display: flex;
   justify-content: space-between;
@@ -40,6 +50,9 @@
   padding: 16px 18px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
   border: 1px solid #e5e7eb;
+
+  width: 100%;            /* 부모 .home 폭 안에서 꽉 채우기 */
+  box-sizing: border-box; /* padding 포함해서 100% 넘지 않게 */
 }
 
 .post-card-title {
@@ -64,4 +77,17 @@
   margin-top: 4px;
   border-top: 1px solid #f3f4f6;
   padding-top: 6px;
+}
+
+/* 🔹 모바일에서 조금 더 타이트하게 */
+@media (max-width: 600px) {
+  .home {
+    max-width: 100%;
+    margin: 24px auto;
+    padding: 0 12px;
+  }
+
+  .post-card {
+    margin: 8px 0;
+  }
 }
