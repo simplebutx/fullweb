@@ -11,7 +11,7 @@ function PostDetail({ user }) {
   const [post, setPost] = useState(null);   // 글 데이터
   const [msg, setMsg] = useState('');       // 팝업 메시지
   const [loading, setLoading] = useState(true); // 로딩 상태
-  
+
   // UI 편의성 (자기 글만 수정 삭제 버튼)
   const userId = user && (user._id || user.id);
   const authorId = post && (post.authorId || post.userId);
@@ -96,7 +96,7 @@ function PostDetail({ user }) {
 
 
   return (
-    <div className="post-detail-page">
+    <div className="post-detail-container">
       {msg && <div className="popup">{msg}</div>}
       {loading && !msg && <div>로딩 중...</div>}
       {!loading && !post && !msg && (
