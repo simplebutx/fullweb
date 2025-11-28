@@ -1,4 +1,6 @@
 .navbar {
+  width: 100%;              /* ⬅ 반드시 필요 */
+  box-sizing: border-box;   /* ⬅ 반드시 필요 */
   padding: 15px 30px;
   display: flex;
   justify-content: space-between;

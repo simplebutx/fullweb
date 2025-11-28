@@ -69,7 +69,6 @@
   padding-top: 6px;
 }
 
-/* 🔹 모바일에서 조금 더 타이트하게 */
 @media (max-width: 600px) {
   .home {
     max-width: 100%;
