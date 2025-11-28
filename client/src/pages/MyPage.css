@@ -1,7 +1,7 @@
 /* 전체 마이페이지 레이아웃 */
 .mypage {
-  max-width: 900px;
-  margin: 40px auto 80px;
+  max-width: 100%;
+  margin: 20px auto;
   padding: 0 16px;
 }
 
