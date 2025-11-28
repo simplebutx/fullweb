@@ -2,6 +2,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { apiFetch } from '../api';
 import './PostDetail.css';
+import CommentSection from '../components/comments/CommentSection.jsx';
 
 function PostDetail({ user }) {
   const { id } = useParams();
@@ -10,6 +11,9 @@ function PostDetail({ user }) {
   const [post, setPost] = useState(null);   // 글 데이터
   const [msg, setMsg] = useState('');       // 팝업 메시지
   const [loading, setLoading] = useState(true); // 로딩 상태
+
+  const [comment, setComment] = useState(''); 
+  const [comments, setComments] = useState([]);
 
   // UI 편의성 (자기 글만 수정 삭제 버튼)
   const userId = user && (user._id || user.id);
@@ -90,6 +94,10 @@ function PostDetail({ user }) {
     }
   };
 
+
+
+
+
   return (
     <div className="post-detail-page">
       {msg && <div className="popup">{msg}</div>}
@@ -131,6 +139,8 @@ function PostDetail({ user }) {
               </button>
             </div>
           )}
+
+          <CommentSection postId={id} user={user} />
         </article>
       )}
     </div>

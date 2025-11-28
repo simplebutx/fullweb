@@ -201,4 +201,46 @@ router.delete('/:id', isLoggedIn, async (req, res) => {
   }
 });
 
+// 댓글 작성
+router.post('/:postId/comments', isLoggedIn, async (req, res) => {
+  try {
+    const postId = req.params.postId;   
+
+    const result = await db.collection('comments').insertOne({
+      comment: req.body.comment,
+      authorId: req.user._id,
+      authorName: req.user.username,
+      postId: postId,                
+      createdAt: new Date(),
+    });
+
+    console.log('✅ 댓글 저장됨:', result.insertedId);
+
+    res.json({ msg: '댓글 작성함' });
+  } catch (err) {
+    console.error('❌ 댓글 작성 에러:', err);
+    res.status(500).json({ msg: '댓글 작성 중 오류' });
+  }
+});
+
+// 댓글 목록 불러오기
+router.get('/:postId/comments', isLoggedIn, async (req, res) => {
+  try {
+    const postId = req.params.postId;
+
+    console.log('📥 댓글 목록 요청 postId:', postId);
+
+    const comments = await db
+      .collection('comments')
+      .find({ postId: postId })       
+      .sort({ createdAt: -1 })
+      .toArray();               
+
+    res.json({ comments });     
+  } catch (err) {
+    console.error('❌ 댓글 불러오기 에러:', err);
+    res.status(500).json({ msg: '댓글 불러오기 중 오류' });
+  }
+});
+
 module.exports = router;
